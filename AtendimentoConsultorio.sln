@@ -4,12 +4,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtendimentoConsultorio.Api", "AtendimentoConsultorio.Api\AtendimentoConsultorio.Api.csproj", "{47308D2F-0941-4B97-9B20-A218F75F9615}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1244C495-D108-41B0-82B5-2D342F46279F} = {1244C495-D108-41B0-82B5-2D342F46279F}
+		{3DAE3378-01AD-4F5B-A1D8-109BB3E68C75} = {3DAE3378-01AD-4F5B-A1D8-109BB3E68C75}
+		{4A3B6EA1-F01D-4A08-AC45-42C973474F2E} = {4A3B6EA1-F01D-4A08-AC45-42C973474F2E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtendimentoConsultorio.Application", "AtendimentoConsultorio.Application\AtendimentoConsultorio.Application.csproj", "{3DAE3378-01AD-4F5B-A1D8-109BB3E68C75}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1244C495-D108-41B0-82B5-2D342F46279F} = {1244C495-D108-41B0-82B5-2D342F46279F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtendimentoConsultorio.Domain", "AtendimentoConsultorio.Domain\AtendimentoConsultorio.Domain.csproj", "{1244C495-D108-41B0-82B5-2D342F46279F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtendimentoConsultorio.Infrastructure", "AtendimentoConsultorio.Infrastructure\AtendimentoConsultorio.Infrastructure.csproj", "{4A3B6EA1-F01D-4A08-AC45-42C973474F2E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1244C495-D108-41B0-82B5-2D342F46279F} = {1244C495-D108-41B0-82B5-2D342F46279F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
