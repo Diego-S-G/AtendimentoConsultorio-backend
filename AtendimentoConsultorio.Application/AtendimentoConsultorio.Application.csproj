@@ -11,4 +11,8 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AtendimentoConsultorio.Domain\AtendimentoConsultorio.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
