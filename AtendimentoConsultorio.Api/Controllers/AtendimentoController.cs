@@ -1,4 +1,5 @@
 ﻿using AtendimentoConsultorio.Application.Interfaces;
+using AtendimentoConsultorio.Domain.Dtos;
 using AtendimentoConsultorio.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ namespace AtendimentoConsultorio.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok(entities.Select(x => new { x.Id, x.DataHora, x.Status, x.MedicoId, x.Medico, x.PacienteId, x.Paciente, x.SalaId, x.Sala }));
+            return Ok(entities.Select(x => new { x.Id, x.DataHora, x.Status, x.MedicoId, x.PacienteId, x.SalaId }));
         }
 
         [HttpGet("{id}")]
@@ -38,12 +39,21 @@ namespace AtendimentoConsultorio.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, Medico = entity.Medico, Paciente = entity.Paciente, Sala = entity.Sala });
+            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, MedicoId = entity.MedicoId, PacienteId = entity.PacienteId, SalaId = entity.SalaId });
         }
 
         [HttpPost]
-        public async Task<ActionResult<Atendimento>> PostAsync(Atendimento atendimento)
+        public async Task<ActionResult<Atendimento>> PostAsync(AtendimentoInsertDto atendimentoDto)
         {
+            var atendimento = new Atendimento
+            {
+                DataHora = atendimentoDto.DataHora,
+                Status = atendimentoDto.Status,
+                MedicoId = atendimentoDto.MedicoId,
+                PacienteId = atendimentoDto.PacienteId,
+                SalaId = atendimentoDto.SalaId
+            };
+
             var entity = await _atendimentoService.CreateAsync(atendimento);
 
             if (entity == null)
@@ -51,12 +61,22 @@ namespace AtendimentoConsultorio.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, Medico = entity.Medico, Paciente = entity.Paciente, Sala = entity.Sala });
+            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, MedicoId = entity.MedicoId, PacienteId = entity.PacienteId, SalaId = entity.SalaId });
         }
 
         [HttpPut()]
-        public async Task<IActionResult> PutAsync(Atendimento atendimento)
+        public async Task<IActionResult> PutAsync(AtendimentoUpdateDto atendimentoDto)
         {
+            var atendimento = new Atendimento
+            {
+                Id = atendimentoDto.Id,
+                DataHora = atendimentoDto.DataHora,
+                Status = atendimentoDto.Status,
+                MedicoId = atendimentoDto.MedicoId,
+                PacienteId = atendimentoDto.PacienteId,
+                SalaId = atendimentoDto.SalaId
+            };
+
             var entity = await _atendimentoService.UpdateAsync(atendimento.Id, atendimento);
 
             if (entity == null)
@@ -64,7 +84,7 @@ namespace AtendimentoConsultorio.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, Medico = entity.Medico, Paciente = entity.Paciente, Sala = entity.Sala });
+            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, MedicoId = entity.MedicoId, PacienteId = entity.PacienteId, SalaId = entity.SalaId });
         }
 
         [HttpDelete("{id}")]

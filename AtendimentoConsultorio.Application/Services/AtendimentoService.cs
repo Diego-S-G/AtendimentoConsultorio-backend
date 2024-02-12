@@ -19,6 +19,13 @@ namespace AtendimentoConsultorio.Application.Services
         }
         public Task<Atendimento> CreateAsync(Atendimento atendimento)
         {
+            ValidarTiposComplexos(atendimento);
+
+            return _atendimentoRepository.CreateAsync(atendimento);
+        }
+
+        private void ValidarTiposComplexos(Atendimento atendimento)
+        {
             if (!atendimento.MedicoId.Equals(0))
             {
                 var medico = _medicoRepository.GetCompleteAsync(atendimento.MedicoId);
@@ -36,8 +43,6 @@ namespace AtendimentoConsultorio.Application.Services
                 var sala = _salaRepository.GetCompleteAsync(atendimento.SalaId);
                 atendimento.Sala = sala.Result;
             }
-
-            return _atendimentoRepository.CreateAsync(atendimento);
         }
 
         public bool Delete(int id)
@@ -57,6 +62,8 @@ namespace AtendimentoConsultorio.Application.Services
 
         public Task<Atendimento> UpdateAsync(int id, Atendimento atendimento)
         {
+            ValidarTiposComplexos(atendimento);
+
             return _atendimentoRepository.UpdateAsync(id, atendimento);
         }
     }

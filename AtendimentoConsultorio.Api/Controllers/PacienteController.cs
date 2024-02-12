@@ -1,4 +1,5 @@
 ﻿using AtendimentoConsultorio.Application.Interfaces;
+using AtendimentoConsultorio.Domain.Dtos;
 using AtendimentoConsultorio.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,8 +43,14 @@ namespace AtendimentoConsultorio.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Paciente>> PostAsync(Paciente paciente)
+        public async Task<ActionResult<Paciente>> PostAsync(PacienteInsertDto pacienteDto)
         {
+            var paciente = new Paciente
+            {
+                Nome = pacienteDto.Nome,
+                Sexo = pacienteDto.Sexo
+            };
+
             var entity = await _pacienteService.CreateAsync(paciente);
 
             if (entity == null)
