@@ -9,5 +9,6 @@ namespace AtendimentoConsultorio.Infrastructure.Datas
         public virtual DbSet<Medico> Medicos { get; set; }
         public virtual DbSet<Paciente> Pacientes { get; set; }
         public virtual DbSet<Sala> Salas { get; set; }
+        public virtual DbSet<Atendimento> Atendimentos { get; set; }
     }
 }
