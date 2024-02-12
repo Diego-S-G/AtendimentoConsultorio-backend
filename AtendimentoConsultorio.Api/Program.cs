@@ -27,6 +27,9 @@ namespace AtendimentoConsultorio.Api
             builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
             builder.Services.AddScoped<IMedicoService, MedicoService>();
 
+            builder.Services.AddScoped<IPacienteRepository, PacienteRepository>();
+            builder.Services.AddScoped<IPacienteService, PacienteService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
