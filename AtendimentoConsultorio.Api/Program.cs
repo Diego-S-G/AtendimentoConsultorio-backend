@@ -1,5 +1,9 @@
 
+using AtendimentoConsultorio.Application.Interfaces;
+using AtendimentoConsultorio.Application.Services;
+using AtendimentoConsultorio.Domain.Interfaces;
 using AtendimentoConsultorio.Infrastructure.Datas;
+using AtendimentoConsultorio.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace AtendimentoConsultorio.Api
@@ -19,6 +23,9 @@ namespace AtendimentoConsultorio.Api
 
             builder.Services.AddDbContext<AtendimentoConsultorioDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+
+            builder.Services.AddScoped<IMedicoRepository, MedicoRepository>();
+            builder.Services.AddScoped<IMedicoService, MedicoService>();
 
             var app = builder.Build();
 

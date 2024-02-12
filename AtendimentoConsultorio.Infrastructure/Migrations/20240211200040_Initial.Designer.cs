@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AtendimentoConsultorio.Infrastructure.Migrations
 {
     [DbContext(typeof(AtendimentoConsultorioDbContext))]
-    [Migration("20240210173214_Initial")]
+    [Migration("20240211200040_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -43,6 +43,47 @@ namespace AtendimentoConsultorio.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medicos");
+                });
+
+            modelBuilder.Entity("AtendimentoConsultorio.Domain.Entities.Paciente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pacientes");
+                });
+
+            modelBuilder.Entity("AtendimentoConsultorio.Domain.Entities.Sala", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sigla")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Salas");
                 });
 #pragma warning restore 612, 618
         }
