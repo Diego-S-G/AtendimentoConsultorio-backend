@@ -33,6 +33,9 @@ namespace AtendimentoConsultorio.Api
             builder.Services.AddScoped<ISalaRepository, SalaRepository>();
             builder.Services.AddScoped<ISalaService, SalaService>();
 
+            builder.Services.AddScoped<IAtendimentoRepository, AtendimentoRepository>();
+            builder.Services.AddScoped<IAtendimentoService, AtendimentoService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
