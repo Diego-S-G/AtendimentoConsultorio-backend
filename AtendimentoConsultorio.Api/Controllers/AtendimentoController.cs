@@ -11,14 +11,21 @@ namespace AtendimentoConsultorio.Api.Controllers
     public class AtendimentoController : ControllerBase
     {
         private readonly IAtendimentoService _atendimentoService;
-        public AtendimentoController(IAtendimentoService service)
+        private readonly IMedicoService _medicoService;
+        private readonly IPacienteService _pacienteService;
+        private readonly ISalaService _salaService;
+        public AtendimentoController(IAtendimentoService service, IMedicoService medicoService, IPacienteService pacienteService, ISalaService salaService)
         {
             _atendimentoService = service;
+            _medicoService = medicoService;
+            _pacienteService = pacienteService;
+            _salaService = salaService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetListAsync()
         {
+
             var entities = await _atendimentoService.GetListAsync();
 
             if (entities == null)
@@ -26,7 +33,21 @@ namespace AtendimentoConsultorio.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok(entities.Select(x => new { x.Id, x.DataHora, x.Status, x.MedicoId, x.PacienteId, x.SalaId }));
+            var atendimento = entities.Select(x => new AtendimentoResponseDto
+            {
+                Id = x.Id,
+                MedicoId = x.MedicoId,
+                NomeMedico = x.Medico.Nome,
+                PacienteId = x.PacienteId,
+                NomePaciente = x.Paciente.Nome,
+                SalaId = x.SalaId,
+                NomeSala = x.Sala.ToString(),
+                DataHora = x.DataHora,
+                Status = (short)x.Status,
+            });
+
+
+            return Ok(atendimento);
         }
 
         [HttpGet("{id}")]
@@ -47,7 +68,7 @@ namespace AtendimentoConsultorio.Api.Controllers
         {
             var atendimento = new Atendimento
             {
-                DataHora = atendimentoDto.DataHora,
+                DataHora = DateTime.Now,
                 Status = atendimentoDto.Status,
                 MedicoId = atendimentoDto.MedicoId,
                 PacienteId = atendimentoDto.PacienteId,

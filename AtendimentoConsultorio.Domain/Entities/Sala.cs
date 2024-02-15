@@ -6,9 +6,10 @@
         public string Sigla { get; set; }
         public string Descricao { get; set; }
 
-        public override string? ToString()
+        public override string ToString()
         {
             return $"{Sigla} - {Descricao}";
         }
+
     }
 }

@@ -64,7 +64,11 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
 
         public async Task<IEnumerable<Atendimento>> GetListAsync()
         {
-            var entity = await _context.Atendimentos.ToListAsync();
+            var entity = await _context.Atendimentos
+                .Include(x => x.Medico)
+                .Include(x => x.Paciente)
+                .Include(x => x.Sala)
+                .ToListAsync();
 
             return entity;
         }
