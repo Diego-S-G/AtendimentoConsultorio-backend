@@ -46,7 +46,7 @@ namespace AtendimentoConsultorio.Api.Controllers
         {
             var sala = new Sala
             {
-                Sigla = salaDto.Sigla,
+                Sigla = salaDto.Sigla.ToUpper(),
                 Descricao = salaDto.Descricao
             };
 

@@ -78,7 +78,7 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
                 return null;
             }
 
-            entity.Sigla = sala.Sigla;
+            entity.Sigla = sala.Sigla.ToUpper();
             entity.Descricao = sala.Descricao;
 
             _context.Update(entity);

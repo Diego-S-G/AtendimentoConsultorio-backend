@@ -5,6 +5,6 @@ namespace AtendimentoConsultorio.Domain.Dtos
     public class PacienteInsertDto
     {
         public string Nome { get; set; }
-        public SexoEnum Sexo { get; set; }
+        public short Sexo { get; set; }
     }
 }

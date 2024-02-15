@@ -1,6 +1,7 @@
 ﻿using AtendimentoConsultorio.Application.Interfaces;
 using AtendimentoConsultorio.Domain.Dtos;
 using AtendimentoConsultorio.Domain.Entities;
+using AtendimentoConsultorio.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -48,7 +49,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             var paciente = new Paciente
             {
                 Nome = pacienteDto.Nome,
-                Sexo = pacienteDto.Sexo
+                Sexo = (SexoEnum)pacienteDto.Sexo
             };
 
             var entity = await _pacienteService.CreateAsync(paciente);
@@ -62,8 +63,15 @@ namespace AtendimentoConsultorio.Api.Controllers
         }
 
         [HttpPut()]
-        public async Task<IActionResult> PutAsync(Paciente paciente)
+        public async Task<IActionResult> PutAsync(PacienteUpdateDto pacienteDto)
         {
+            var paciente = new Paciente
+            {
+                Id = pacienteDto.Id,
+                Nome = pacienteDto.Nome,
+                Sexo = (SexoEnum)pacienteDto.Sexo
+            };
+
             var entity = await _pacienteService.UpdateAsync(paciente.Id, paciente);
 
             if (entity == null)
