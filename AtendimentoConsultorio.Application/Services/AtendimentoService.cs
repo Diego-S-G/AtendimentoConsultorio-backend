@@ -50,11 +50,6 @@ namespace AtendimentoConsultorio.Application.Services
             return _atendimentoRepository.Delete(id);
         }
 
-        public Task<Atendimento> GetCompleteAsync(int id)
-        {
-            return _atendimentoRepository.GetCompleteAsync(id);
-        }
-
         public Task<IEnumerable<Atendimento>> GetListAsync()
         {
             return _atendimentoRepository.GetListAsync();
@@ -65,6 +60,11 @@ namespace AtendimentoConsultorio.Application.Services
             ValidarTiposComplexos(atendimento);
 
             return _atendimentoRepository.UpdateAsync(id, atendimento);
+        }
+
+        public Task<IEnumerable<Atendimento>> GetFinishedList(short take)
+        {
+            return _atendimentoRepository.GetFinishedList(t);
         }
     }
 }

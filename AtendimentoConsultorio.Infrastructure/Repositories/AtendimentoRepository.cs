@@ -50,18 +50,6 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<Atendimento> GetCompleteAsync(int id)
-        {
-            var entity = GetAtendimentoById(id);
-
-            if (entity == null)
-            {
-                return null;
-            }
-
-            return entity;
-        }
-
         public async Task<IEnumerable<Atendimento>> GetListAsync()
         {
             var entity = await _context.Atendimentos
@@ -90,6 +78,20 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
 
             _context.Update(entity);
             _context.SaveChanges();
+            return entity;
+        }
+
+        public async Task<IEnumerable<Atendimento>> GetFinishedList(short take)
+        {
+            var entity = await _context.Atendimentos
+                 .Include(x => x.Medico)
+                 .Include(x => x.Paciente)
+                 .Include(x => x.Sala)
+                 .Where(x => x.Status == Domain.Enums.StatusEnum.Atendido || x.Status == Domain.Enums.StatusEnum.Cancelado)
+                 .OrderByDescending(x => x.DataHora)
+                 .Take(3)
+                 .ToListAsync();
+
             return entity;
         }
     }

@@ -11,15 +11,9 @@ namespace AtendimentoConsultorio.Api.Controllers
     public class AtendimentoController : ControllerBase
     {
         private readonly IAtendimentoService _atendimentoService;
-        private readonly IMedicoService _medicoService;
-        private readonly IPacienteService _pacienteService;
-        private readonly ISalaService _salaService;
-        public AtendimentoController(IAtendimentoService service, IMedicoService medicoService, IPacienteService pacienteService, ISalaService salaService)
+        public AtendimentoController(IAtendimentoService service)
         {
             _atendimentoService = service;
-            _medicoService = medicoService;
-            _pacienteService = pacienteService;
-            _salaService = salaService;
         }
 
         [HttpGet]
@@ -49,18 +43,31 @@ namespace AtendimentoConsultorio.Api.Controllers
 
             return Ok(atendimento);
         }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Atendimento>> GetCompleteAsync(int id)
+    
+        [HttpGet("{take}")]
+        public async Task<IActionResult> GetFinishedList(short take)
         {
-            var entity = await _atendimentoService.GetCompleteAsync(id);
+            var entities = await _atendimentoService.GetFinishedList(take);
 
-            if (entity == null)
+            if (entities == null)
             {
                 return BadRequest();
             }
 
-            return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, MedicoId = entity.MedicoId, PacienteId = entity.PacienteId, SalaId = entity.SalaId });
+            var atendimentos = entities.Select(x => new AtendimentoResponseDto
+            {
+                Id = x.Id,
+                MedicoId = x.MedicoId,
+                NomeMedico = x.Medico.Nome,
+                PacienteId = x.PacienteId,
+                NomePaciente = x.Paciente.Nome,
+                SalaId = x.SalaId,
+                NomeSala = x.Sala.ToString(),
+                DataHora = x.DataHora,
+                Status = (short)x.Status,
+            });
+
+            return Ok(atendimentos);
         }
 
         [HttpPost]
@@ -91,7 +98,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             var atendimento = new Atendimento
             {
                 Id = atendimentoDto.Id,
-                DataHora = atendimentoDto.DataHora,
+                DataHora = DateTime.Now,
                 Status = atendimentoDto.Status,
                 MedicoId = atendimentoDto.MedicoId,
                 PacienteId = atendimentoDto.PacienteId,
