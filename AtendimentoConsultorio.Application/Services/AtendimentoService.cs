@@ -71,5 +71,10 @@ namespace AtendimentoConsultorio.Application.Services
         {
             return _atendimentoRepository.GetInProcessList();
         }
+
+        public bool DeleteAll()
+        {
+            return _atendimentoRepository.DeleteAll();
+        }
     }
 }

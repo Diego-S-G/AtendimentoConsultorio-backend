@@ -21,7 +21,7 @@ namespace AtendimentoConsultorio.Infrastructure.ConfigurationMap
             builder.Property((x) => x.Especialidade)
                 .HasColumnName("Especialidade")
                 .HasColumnType("varchar")
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .IsRequired();
         }
     }

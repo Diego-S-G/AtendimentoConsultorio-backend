@@ -49,6 +49,19 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
             _context.SaveChanges();
             return true;
         }
+        public bool DeleteAll()
+        {
+            var entities = GetListAsync();
+
+            if (entities == null)
+            {
+                return false;
+            }
+
+            _context.Atendimentos.RemoveRange(entities.Result);
+            _context.SaveChanges();
+            return true;
+        }
 
         public async Task<IEnumerable<Atendimento>> GetListAsync()
         {

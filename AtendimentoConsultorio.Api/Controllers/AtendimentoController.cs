@@ -154,5 +154,18 @@ namespace AtendimentoConsultorio.Api.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public IActionResult DeleteAll()
+        {
+            var success = _atendimentoService.DeleteAll();
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
     }
 }
