@@ -101,6 +101,7 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
                  .Include(x => x.Paciente)
                  .Include(x => x.Sala)
                  .Where(x => x.Status == Domain.Enums.StatusEnum.Atendido || x.Status == Domain.Enums.StatusEnum.Cancelado)
+                 .Where(x => x.DataHora.Day == DateTime.Now.Day)
                  .OrderByDescending(x => x.DataHora)
                  .Take(3)
                  .ToListAsync();
