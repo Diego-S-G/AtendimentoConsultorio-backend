@@ -70,10 +70,36 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(atendimentos);
         }
 
-        [HttpGet("Andamento")]
-        public async Task<IActionResult> GetInProcessList()
+        [HttpGet("FirstAndamento")]
+        public async Task<IActionResult> GetFirstInProcess()
         {
-            var entities = await _atendimentoService.GetInProcessList();
+            var entity = await _atendimentoService.GetFirstInProcess();
+
+            if (entity == null)
+            {
+                return BadRequest();
+            }
+
+            var atendimentos = new AtendimentoResponseDto
+            {
+                Id = entity.Id,
+                MedicoId = entity.MedicoId,
+                NomeMedico = entity.Medico.Nome,
+                PacienteId = entity.PacienteId,
+                NomePaciente = entity.Paciente.Nome,
+                SalaId = entity.SalaId,
+                NomeSala = entity.Sala.ToString(),
+                DataHora = entity.DataHora,
+                Status = (short)entity.Status
+            };
+
+            return Ok(atendimentos);
+        }
+
+        [HttpGet("RestoAndamento")]
+        public async Task<IActionResult> GetRestInProcessList()
+        {
+            var entities = await _atendimentoService.GetRestInProcessList();
 
             if (entities == null)
             {
@@ -95,6 +121,7 @@ namespace AtendimentoConsultorio.Api.Controllers
 
             return Ok(atendimentos);
         }
+
 
 
         [HttpPost]

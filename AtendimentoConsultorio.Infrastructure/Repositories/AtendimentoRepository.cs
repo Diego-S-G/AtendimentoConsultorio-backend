@@ -109,7 +109,7 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<IEnumerable<Atendimento>> GetInProcessList()
+        public async Task<Atendimento> GetFirstInProcess()
         {
             var entity = await _context.Atendimentos
                  .Include(x => x.Medico)
@@ -117,6 +117,20 @@ namespace AtendimentoConsultorio.Infrastructure.Repositories
                  .Include(x => x.Sala)
                  .Where(x => x.Status == Domain.Enums.StatusEnum.EmAndamento)
                  .OrderByDescending(x => x.DataHora)
+                 .Take(1)
+                 .SingleOrDefaultAsync();
+
+            return entity;
+        }
+        public async Task<IEnumerable<Atendimento>> GetRestInProcessList()
+        {
+            var entity = await _context.Atendimentos
+                 .Include(x => x.Medico)
+                 .Include(x => x.Paciente)
+                 .Include(x => x.Sala)
+                 .Where(x => x.Status == Domain.Enums.StatusEnum.EmAndamento)
+                 .OrderByDescending(x => x.DataHora)
+                 .Skip(1)
                  .ToListAsync();
 
             return entity;

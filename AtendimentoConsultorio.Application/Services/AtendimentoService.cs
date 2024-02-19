@@ -67,14 +67,19 @@ namespace AtendimentoConsultorio.Application.Services
             return _atendimentoRepository.GetFinishedList(take);
         }
 
-        public Task<IEnumerable<Atendimento>> GetInProcessList()
+        public Task<Atendimento> GetFirstInProcess()
         {
-            return _atendimentoRepository.GetInProcessList();
+            return _atendimentoRepository.GetFirstInProcess();
         }
 
         public bool DeleteAll()
         {
             return _atendimentoRepository.DeleteAll();
+        }
+
+        public Task<IEnumerable<Atendimento>> GetRestInProcessList()
+        {
+            return _atendimentoRepository.GetRestInProcessList();
         }
     }
 }
