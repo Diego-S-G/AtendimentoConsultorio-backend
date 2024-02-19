@@ -64,7 +64,12 @@ namespace AtendimentoConsultorio.Application.Services
 
         public Task<IEnumerable<Atendimento>> GetFinishedList(short take)
         {
-            return _atendimentoRepository.GetFinishedList(t);
+            return _atendimentoRepository.GetFinishedList(take);
+        }
+
+        public Task<IEnumerable<Atendimento>> GetInProcessList()
+        {
+            return _atendimentoRepository.GetInProcessList();
         }
     }
 }

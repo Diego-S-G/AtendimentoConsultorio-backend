@@ -70,6 +70,33 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(atendimentos);
         }
 
+        [HttpGet("Andamento")]
+        public async Task<IActionResult> GetInProcessList()
+        {
+            var entities = await _atendimentoService.GetInProcessList();
+
+            if (entities == null)
+            {
+                return BadRequest();
+            }
+
+            var atendimentos = entities.Select(x => new AtendimentoResponseDto
+            {
+                Id = x.Id,
+                MedicoId = x.MedicoId,
+                NomeMedico = x.Medico.Nome,
+                PacienteId = x.PacienteId,
+                NomePaciente = x.Paciente.Nome,
+                SalaId = x.SalaId,
+                NomeSala = x.Sala.ToString(),
+                DataHora = x.DataHora,
+                Status = (short)x.Status,
+            });
+
+            return Ok(atendimentos);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Atendimento>> PostAsync(AtendimentoInsertDto atendimentoDto)
         {
