@@ -60,7 +60,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(new Sala { Id = entity.Id, Sigla = entity.Sigla, Descricao = entity.Descricao });
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<IActionResult> PutAsync(Sala sala)
         {
             var entity = await _salaService.UpdateAsync(sala.Id, sala);

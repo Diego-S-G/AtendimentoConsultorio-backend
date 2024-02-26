@@ -146,7 +146,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(new Atendimento { Id = entity.Id, DataHora = entity.DataHora, Status = entity.Status, MedicoId = entity.MedicoId, PacienteId = entity.PacienteId, SalaId = entity.SalaId });
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<IActionResult> PutAsync(AtendimentoUpdateDto atendimentoDto)
         {
             var atendimento = new Atendimento

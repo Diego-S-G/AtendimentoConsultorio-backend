@@ -62,7 +62,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(new Paciente { Id = entity.Id, Nome = entity.Nome, Sexo = entity.Sexo });
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<IActionResult> PutAsync(PacienteUpdateDto pacienteDto)
         {
             var paciente = new Paciente

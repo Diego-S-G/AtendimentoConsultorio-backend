@@ -60,7 +60,7 @@ namespace AtendimentoConsultorio.Api.Controllers
             return Ok(new Medico { Id = entity.Id, Nome = entity.Nome, Especialidade = entity.Especialidade });
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<IActionResult> PutAsync(Medico medico)
         {
             var entity = await _medicoService.UpdateAsync(medico.Id, medico);
